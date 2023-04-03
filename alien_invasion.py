@@ -93,6 +93,7 @@ class AlienInvasion:
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
         elif event.key == pygame.K_q:
+            self.stats.update_high_score()
             sys.exit()
 
     def _check_keyup_events(self, event):
@@ -123,6 +124,7 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliens)
 
             self.sb.prep_score()
+            self.sb.check_high_score()
 
         if not self.aliens:
             self.bullets.empty()
@@ -144,6 +146,7 @@ class AlienInvasion:
         if self.stats.ships_left <= 0:
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
+            self.stats.update_high_score()
             return
 
         self.aliens.empty()
