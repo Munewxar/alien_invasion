@@ -22,6 +22,7 @@ class GameStats:
     def _write_high_score(self):
         try:
             with open("util/high_score.txt", "w") as f:
+                self.high_score = round(self.high_score, -1)
                 f.write(str(self.high_score))
         except FileNotFoundError:
             print('There is no file "high_score.txt"')
