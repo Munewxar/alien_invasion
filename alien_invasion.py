@@ -10,6 +10,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from button import Button
+from sound_processor import SoundProcessor
 
 
 class AlienInvasion:
@@ -30,6 +31,8 @@ class AlienInvasion:
 
         pygame.display.set_caption("Alien Invasion")
         self.bg_color = (230, 230, 230)
+
+        self.sound_processor = SoundProcessor()
 
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
@@ -108,6 +111,7 @@ class AlienInvasion:
     def _fire_bullet(self):
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
+            self.sound_processor.play_shoot()
             self.bullets.add(new_bullet)
 
     def _update_bullets(self):
@@ -147,6 +151,8 @@ class AlienInvasion:
         self._check_aliens_bottom()
 
     def _ship_hit(self):
+        self.sound_processor.play_ship_hit()
+
         self.stats.ships_left -= 1
 
         self.sb.prep_ships()
