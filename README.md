@@ -20,7 +20,7 @@ loses a ship. If the player loses three ships, the game ends.
 - [Pygame](https://www.pygame.org/)
 
 ## Controls
-- Space-bar
+- Space
   - Shoot
 
 - Arrows keys (left - right)
