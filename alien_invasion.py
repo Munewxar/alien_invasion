@@ -77,15 +77,9 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.stats.game_active = True
 
-            self.sb.prep_score()
-            self.sb.prep_level()
-            self.sb.prep_ships()
+            self.sb.prep_scoreboard()
 
-            self.aliens.empty()
-            self.bullets.empty()
-
-            self._create_fleet()
-            self.ship.center_ship()
+            self._reset_screen()
 
             pygame.mouse.set_visible(False)
 
@@ -134,12 +128,15 @@ class AlienInvasion:
             self.sb.check_high_score()
 
         if not self.aliens:
-            self.bullets.empty()
-            self._create_fleet()
-            self.settings.increase_speed()
+            self._start_new_level()
 
-            self.stats.level += 1
-            self.sb.prep_level()
+    def _start_new_level(self):
+        self.bullets.empty()
+        self._create_fleet()
+        self.settings.increase_speed()
+
+        self.stats.level += 1
+        self.sb.prep_level()
 
     def _update_aliens(self):
         self._check_fleet_edges()
@@ -163,13 +160,16 @@ class AlienInvasion:
             self.stats.update_high_score()
             return
 
+        self._reset_screen()
+
+        sleep(0.5)
+
+    def _reset_screen(self):
         self.aliens.empty()
         self.bullets.empty()
 
         self._create_fleet()
         self.ship.center_ship()
-
-        sleep(0.5)
 
     def _create_fleet(self):
         alien = Alien(self)
